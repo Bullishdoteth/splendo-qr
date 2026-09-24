@@ -56,24 +56,39 @@ export default function GuestMenuPage({ params }: { params: Promise<{ slug: stri
   const [placedOrderId, setPlacedOrderId] = useState<string | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
     async function loadMenu() {
+      if (!slug) return;
       try {
         setLoading(true);
+        setError(null);
         const res = await fetch(`/api/menu/${slug}`);
+        const data = await res.json().catch(() => ({}));
+
         if (!res.ok) {
-          throw new Error("Location not found or offline.");
+          throw new Error(data.error || "Ordering location not found or offline.");
         }
-        const data = await res.json();
-        setLocation(data.location);
-        setCategories(data.categories);
+
+        if (isMounted) {
+          setLocation(data.location);
+          setCategories(data.categories || []);
+        }
       } catch (err: any) {
-        setError(err?.message || "Unable to load room menu");
+        if (isMounted) {
+          setError(err?.message || "Unable to load room menu");
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
     loadMenu();
+    return () => {
+      isMounted = false;
+    };
   }, [slug]);
+
 
 
   const updateQuantity = (dish: MenuItem, delta: number) => {
