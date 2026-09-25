@@ -40,7 +40,7 @@ export function MenuList({
       ) : (
         displaySections.map((section) => (
           <div key={section.id} className="space-y-3">
-            <div className="flex items-center justify-between px-1">
+            <div className="flex items-center justify-between px-1 pb-4">
               <h3 className="text-base font-bold text-stone-900 tracking-tight flex items-center gap-1.5">
                 {section.id === "popular" && (
                   <Sparkles className="w-4 h-4 text-[#183B32]" />

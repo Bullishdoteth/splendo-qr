@@ -15,7 +15,7 @@ export function CategoryNav({
   onSelectCategory,
 }: CategoryNavProps) {
   return (
-    <div className="sticky top-[57px] z-20 bg-white backdrop-blur-md py-2 -mx-4 px-4 border-b border-[#E5E3DB]/60">
+    <div className="sticky top-[57px] z-20 bg-white backdrop-blur-md py-2 pb-4 -mx-4 px-4 border-b border-[#E5E3DB]/60">
       <div className="flex items-center gap-2 overflow-x-auto scrollbar-none snap-x py-0.5">
         <button
           onClick={() => onSelectCategory("popular")}

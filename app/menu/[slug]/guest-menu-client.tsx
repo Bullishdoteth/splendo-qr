@@ -229,7 +229,7 @@ export default function GuestMenuClient({
       <MenuHeader location={location} />
 
       {/* Main Container */}
-      <main className="max-w-md mx-auto px-4 pt-4 space-y-4">
+      <main className="max-w-md mx-auto px-4 pt-10 space-y-4">
         {/* Search Header */}
         <MenuSearch searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 

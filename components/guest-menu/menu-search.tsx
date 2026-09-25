@@ -9,8 +9,8 @@ interface MenuSearchProps {
 
 export function MenuSearch({ searchQuery, setSearchQuery }: MenuSearchProps) {
   return (
-    <div className="space-y-2">
-      <h2 className="text-lg font-bold text-stone-900 tracking-tight">
+    <div className="space-y-4">
+      <h2 className="text-lg pb-2 font-bold text-stone-900 tracking-tight">
         What would you like?
       </h2>
 
