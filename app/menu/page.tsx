@@ -3,8 +3,18 @@ import { db } from "@/lib/db/db";
 import { location } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
-export default async function MenuIndexPage() {
-  let targetSlug = "room-208";
+export default async function MenuIndexPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ location?: string }>;
+}) {
+  const { location: locQuery } = await searchParams;
+
+  if (locQuery) {
+    redirect(`/menu/${encodeURIComponent(locQuery)}`);
+  }
+
+  let targetSlug = "suite-401";
 
   try {
     const [firstLocation] = await db
@@ -22,5 +32,6 @@ export default async function MenuIndexPage() {
 
   redirect(`/menu/${targetSlug}`);
 }
+
 
 

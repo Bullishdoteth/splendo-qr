@@ -1,9 +1,10 @@
 import { db } from "@/lib/db/db";
-import { location, category, menuItem } from "@/lib/db/schema";
-import { eq, asc } from "drizzle-orm";
+import { location } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 import GuestMenuClient from "./guest-menu-client";
 import { Utensils } from "lucide-react";
 import Link from "next/link";
+import { getCachedMenuData } from "@/lib/db/cached-menu";
 
 export default async function GuestMenuPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -13,33 +14,18 @@ export default async function GuestMenuPage({ params }: { params: Promise<{ slug
   }
 
   try {
-    // 1. Fetch location from database
+    // 1. Fetch location metadata from database
     const [foundLocation] = await db
       .select()
       .from(location)
       .where(eq(location.slug, slug));
 
-    if (!foundLocation) {
+    if (!foundLocation || !foundLocation.isActive) {
       return <OrderingPointInactive error={`Ordering point for '${slug}' was not found or is inactive.`} />;
     }
 
-    // 2. Fetch categories ordered by sortOrder
-    const categoriesList = await db
-      .select()
-      .from(category)
-      .orderBy(asc(category.sortOrder));
-
-    // 3. Fetch available menu items
-    const itemsList = await db
-      .select()
-      .from(menuItem)
-      .where(eq(menuItem.isAvailable, true));
-
-    // 4. Group items by category
-    const menuWithItems = categoriesList.map((cat) => ({
-      ...cat,
-      items: itemsList.filter((item) => item.categoryId === cat.id),
-    }));
+    // 2. Fetch cached menu (0 DB queries on warm cache)
+    const menuWithItems = await getCachedMenuData();
 
     return (
       <GuestMenuClient
@@ -58,7 +44,7 @@ function OrderingPointInactive({ error }: { error: string }) {
     <div className="min-h-screen bg-[#F7F6F2] flex flex-col items-center justify-center p-6 text-center font-sans">
       <div className="bg-white p-8 rounded-3xl border border-[#E5E3DB] shadow-md max-w-sm w-full space-y-4">
         <Utensils className="w-12 h-12 text-[#183B32] mx-auto" />
-        <h2 className="text-xl font-serif font-bold text-stone-900">Ordering Point Inactive</h2>
+        <h2 className="text-xl font-bold text-stone-900">Ordering Point Inactive</h2>
         <p className="text-xs text-stone-500">{error}</p>
         <Link
           href="/admin/overview"
@@ -70,3 +56,4 @@ function OrderingPointInactive({ error }: { error: string }) {
     </div>
   );
 }
+

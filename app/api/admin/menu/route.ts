@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 import { db } from "@/lib/db/db";
 import { category, menuItem } from "@/lib/db/schema";
 import { eq, asc } from "drizzle-orm";
@@ -13,7 +14,8 @@ export async function GET() {
 
     const itemsList = await db
       .select()
-      .from(menuItem);
+      .from(menuItem)
+      .orderBy(asc(menuItem.sortOrder));
 
     return NextResponse.json({
       categories: categoriesList,
@@ -31,7 +33,7 @@ export async function POST(req: Request) {
     const body = await req.json();
 
     if (body.type === "category") {
-      const { name, description } = body;
+      const { name, description, sortOrder } = body;
       if (!name) {
         return NextResponse.json({ error: "Category name is required" }, { status: 400 });
       }
@@ -41,14 +43,15 @@ export async function POST(req: Request) {
         id,
         name,
         description: description || null,
-        sortOrder: 99,
+        sortOrder: sortOrder !== undefined ? parseInt(String(sortOrder), 10) : 99,
       }).returning();
 
+      revalidateTag("menu-data", "max");
       return NextResponse.json({ category: newCategory });
     }
 
     // Creating menu item
-    const { categoryId, title, subtitle, price, prepTime, imageUrl, isAvailable } = body;
+    const { categoryId, title, subtitle, price, prepTime, imageUrl, isAvailable, isFeatured, sortOrder } = body;
 
     if (!categoryId || !title || price === undefined) {
       return NextResponse.json({ error: "Category, title, and price are required" }, { status: 400 });
@@ -66,8 +69,11 @@ export async function POST(req: Request) {
       prepTime: prepTime || "15-20 mins",
       imageUrl: imageUrl || null,
       isAvailable: isAvailable ?? true,
+      isFeatured: isFeatured ?? false,
+      sortOrder: sortOrder !== undefined ? parseInt(String(sortOrder), 10) : 0,
     }).returning();
 
+    revalidateTag("menu-data", "max");
     return NextResponse.json({ item: newItem });
   } catch (error: any) {
     console.error("POST /api/admin/menu error:", error);
@@ -79,7 +85,7 @@ export async function POST(req: Request) {
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
-    const { id, title, subtitle, price, prepTime, imageUrl, isAvailable, categoryId } = body;
+    const { id, title, subtitle, price, prepTime, imageUrl, isAvailable, isFeatured, sortOrder, categoryId } = body;
 
     if (!id) {
       return NextResponse.json({ error: "Item ID is required" }, { status: 400 });
@@ -95,6 +101,8 @@ export async function PUT(req: Request) {
     if (prepTime !== undefined) updateData.prepTime = prepTime;
     if (imageUrl !== undefined) updateData.imageUrl = imageUrl;
     if (isAvailable !== undefined) updateData.isAvailable = Boolean(isAvailable);
+    if (isFeatured !== undefined) updateData.isFeatured = Boolean(isFeatured);
+    if (sortOrder !== undefined) updateData.sortOrder = parseInt(String(sortOrder), 10);
     if (categoryId !== undefined) updateData.categoryId = categoryId;
 
     const [updatedItem] = await db
@@ -103,6 +111,7 @@ export async function PUT(req: Request) {
       .where(eq(menuItem.id, id))
       .returning();
 
+    revalidateTag("menu-data", "max");
     return NextResponse.json({ item: updatedItem });
   } catch (error: any) {
     console.error("PUT /api/admin/menu error:", error);
@@ -127,9 +136,11 @@ export async function DELETE(req: Request) {
       await db.delete(menuItem).where(eq(menuItem.id, id));
     }
 
+    revalidateTag("menu-data", "max");
     return NextResponse.json({ success: true, message: `${type} deleted successfully` });
   } catch (error: any) {
     console.error("DELETE /api/admin/menu error:", error);
     return NextResponse.json({ error: error?.message || "Failed to delete resource" }, { status: 500 });
   }
 }
+

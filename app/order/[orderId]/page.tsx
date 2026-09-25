@@ -181,7 +181,7 @@ export default function OrderTrackingPage({ params }: { params: Promise<{ orderI
       <div className="min-h-screen bg-[#F7F6F2] flex flex-col items-center justify-center p-6 text-center font-sans">
         <div className="bg-white p-8 rounded-3xl border border-[#E5E3DB] shadow-md max-w-sm w-full space-y-4">
           <Utensils className="w-12 h-12 text-[#183B32] mx-auto" />
-          <h2 className="text-xl font-serif font-bold text-stone-900">Order Not Found</h2>
+          <h2 className="text-xl font-bold text-stone-900">Order Not Found</h2>
           <p className="text-xs text-stone-500">{error || "Could not find an active room service order for this ID."}</p>
           <Link
             href="/menu"
@@ -213,7 +213,7 @@ export default function OrderTrackingPage({ params }: { params: Promise<{ orderI
             <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-[#9E6E4D]">
               REAL-TIME TRACKING
             </p>
-            <h1 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 tracking-tight mt-0.5">
+            <h1 className="text-2xl sm:text-3xl font-bold text-stone-900 tracking-tight mt-0.5">
               Order #{order.id}
             </h1>
           </div>
