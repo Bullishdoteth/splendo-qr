@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import { toast } from "sonner";
 import { playOrderPlacedSound } from "@/lib/utils/sound";
+import { SplashScreen } from "@/components/shared/splash";
 
 export interface MenuItem {
   id: string;
@@ -259,6 +260,7 @@ export default function GuestMenuClient({
 
   return (
     <div className="min-h-screen bg-white text-stone-900 font-sans pb-36">
+      <SplashScreen />
       {/* Compact Contextual Top Header */}
       <header className="bg-white border-b border-[#E5E3DB] sticky top-0 z-30 shadow-xs">
         <div className="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
