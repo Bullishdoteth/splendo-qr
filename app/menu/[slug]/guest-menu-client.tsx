@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import { playOrderPlacedSound } from "@/lib/utils/sound";
 import { SplashScreen } from "@/components/shared/splash";
@@ -44,6 +44,59 @@ export default function GuestMenuClient({
   const [submittingOrder, setSubmittingOrder] = useState(false);
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [placedOrderId, setPlacedOrderId] = useState<string | null>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  const storageKey = `splendo_cart_${location?.id || "default"}`;
+
+  // Restore cart from localStorage on mount
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed.items)) {
+          const allLatestItems = categories.flatMap((c) => c.items);
+          const validItems: CartItem[] = [];
+          for (const cartItem of parsed.items) {
+            if (!cartItem?.item?.id) continue;
+            const latest = allLatestItems.find((i) => i.id === cartItem.item.id);
+            if (latest && latest.isAvailable && cartItem.quantity > 0) {
+              validItems.push({ item: latest, quantity: cartItem.quantity });
+            }
+          }
+          setCart(validItems);
+        }
+        if (typeof parsed.specialInstructions === "string") {
+          setSpecialInstructions(parsed.specialInstructions);
+        }
+      }
+    } catch (e) {
+      console.error("Failed to load saved cart from localStorage:", e);
+    } finally {
+      setIsHydrated(true);
+    }
+  }, [storageKey, categories]);
+
+  // Persist cart to localStorage whenever cart or specialInstructions updates
+  useEffect(() => {
+    if (!isHydrated || typeof window === "undefined") return;
+    try {
+      if (cart.length === 0 && !specialInstructions) {
+        localStorage.removeItem(storageKey);
+      } else {
+        localStorage.setItem(
+          storageKey,
+          JSON.stringify({
+            items: cart,
+            specialInstructions,
+          })
+        );
+      }
+    } catch (e) {
+      console.error("Failed to save cart to localStorage:", e);
+    }
+  }, [cart, specialInstructions, storageKey, isHydrated]);
 
   // Curated 6–12 Popular Items
   const popularItems = useMemo(() => {
@@ -146,6 +199,10 @@ export default function GuestMenuClient({
         setPlacedOrderId(data.order.id);
         setOrderConfirmed(true);
         setCart([]);
+        setSpecialInstructions("");
+        if (typeof window !== "undefined") {
+          localStorage.removeItem(storageKey);
+        }
         toast.success(`Order #${data.order.id} sent directly to kitchen!`, {
           description: `Delivering to ${location.name}`,
         });
@@ -172,7 +229,7 @@ export default function GuestMenuClient({
               item.title.toLowerCase().includes(query) ||
               (item.subtitle && item.subtitle.toLowerCase().includes(query));
             const matchesCat =
-              activeCategory === "popular" ||
+            activeCategory === "popular" ||
               activeCategory === "all" ||
               activeCategory === cat.id;
             return matchesSearch && matchesCat && item.isAvailable;
@@ -223,7 +280,7 @@ export default function GuestMenuClient({
 
   return (
     <div className="min-h-screen bg-white text-stone-900 font-sans pb-36">
-      <SplashScreen />
+      <SplashScreen forceShow={true} />
 
       {/* Contextual Top Header */}
       <MenuHeader location={location} />

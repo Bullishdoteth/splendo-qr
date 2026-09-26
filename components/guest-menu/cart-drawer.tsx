@@ -2,6 +2,13 @@
 
 import { X, Trash2, Loader2 } from "lucide-react";
 import { CartItem, MenuItem, formatPrice } from "./types";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTitle,
+  DrawerDescription,
+  DrawerClose,
+} from "@/components/ui/drawer";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -28,30 +35,30 @@ export function CartDrawer({
   handleSendOrder,
   totalCartPrice,
 }: CartDrawerProps) {
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end justify-center p-0 sm:p-4">
-      <div className="bg-white rounded-t-[28px] sm:rounded-[28px] max-w-md w-full p-5 sm:p-6 space-y-5 shadow-2xl border border-[#E5E3DB] font-sans max-h-[90vh] overflow-y-auto animate-in slide-in-from-bottom duration-300 relative">
-        {/* Handle Bar */}
-        <div className="w-10 h-1 bg-stone-300 rounded-full mx-auto -mt-1 mb-1" />
-
+    <Drawer
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+      showSwipeHandle
+    >
+      <DrawerContent className="max-w-md h-[60vh] mx-auto p-5 sm:p-6 space-y-5 font-sans overflow-y-auto">
         {/* Drawer Header */}
         <div className="flex items-start justify-between border-b border-[#E5E3DB] pb-3">
           <div>
-            <h3 className="text-lg font-bold text-stone-900">Your Order</h3>
-            <p className="text-xs text-stone-500 mt-0.5">
+            <DrawerTitle className="text-lg font-bold text-stone-900">Your Order</DrawerTitle>
+            <DrawerDescription className="text-xs text-stone-500 mt-0.5">
               Delivering to{" "}
               <strong className="text-stone-900">{locationName}</strong>
-            </p>
+            </DrawerDescription>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-full text-stone-400 hover:text-stone-900 hover:bg-stone-100 transition-colors"
+          <DrawerClose
+            className="p-1.5 rounded-full text-stone-400 hover:text-stone-900 hover:bg-stone-100 transition-colors cursor-pointer"
             aria-label="Close cart"
           >
             <X className="w-5 h-5" />
-          </button>
+          </DrawerClose>
         </div>
 
         {/* Item List */}
@@ -103,7 +110,7 @@ export function CartDrawer({
 
         {/* Special Instructions */}
         <div className="space-y-1.5 pt-1">
-          <label className="text-xs font-semibold text-stone-700">
+          <label className="text-xs font-semibold text-stone-700 pb-10">
             Special instructions
           </label>
           <textarea
@@ -152,7 +159,8 @@ export function CartDrawer({
             <span>Place Order ({formatPrice(totalCartPrice)})</span>
           )}
         </button>
-      </div>
-    </div>
+      </DrawerContent>
+    </Drawer>
   );
 }
+

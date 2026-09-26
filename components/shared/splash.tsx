@@ -8,9 +8,9 @@ interface SplashScreenProps {
   cookieName?: string;
   /** Expiration time in seconds for the cookie (default 24h = 86400s) */
   cookieMaxAgeSeconds?: number;
-  /** Minimum display duration in ms before fading out (default: 2200ms) */
+  /** Minimum display duration in ms before fading out (default: 3000ms) */
   durationMs?: number;
-  /** Force show for previewing / testing */
+  /** Force show regardless of cookie history (default: true) */
   forceShow?: boolean;
   /** Callback fired when splash screen finishes dismissing */
   onComplete?: () => void;
@@ -19,11 +19,11 @@ interface SplashScreenProps {
 export function SplashScreen({
   cookieName = "splendo_splash_seen",
   cookieMaxAgeSeconds = 86400, // 24 hours
-  durationMs = 2200,
-  forceShow = false,
+  durationMs = 3000,
+  forceShow = true,
   onComplete,
 }: SplashScreenProps) {
-  const [isVisible, setIsVisible] = useState<boolean | null>(null);
+  const [isVisible, setIsVisible] = useState<boolean>(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -52,7 +52,12 @@ export function SplashScreen({
       return;
     }
 
-    // New user or cookie expired: show splash & record cookie
+    // Lock body scrolling while splash is displayed
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "hidden";
+    }
+
+    // Show splash & record cookie
     setIsVisible(true);
     setSplashCookie();
 
@@ -68,9 +73,12 @@ export function SplashScreen({
       }
     }, 30);
 
-    // Start fade out slightly before total duration
+    // Start fade out slightly before total duration and restore body scrolling
     const fadeTimer = setTimeout(() => {
       setIsFadingOut(true);
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "";
+      }
     }, Math.max(durationMs - 500, 500));
 
     // Hide completely after fade out completes
@@ -80,18 +88,24 @@ export function SplashScreen({
     }, durationMs + 200);
 
     return () => {
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "";
+      }
       clearInterval(interval);
       clearTimeout(fadeTimer);
       clearTimeout(dismissTimer);
     };
   }, [cookieName, cookieMaxAgeSeconds, durationMs, forceShow, onComplete]);
 
-  // Don't render anything during initial client hydration check or when hidden
-  if (isVisible === null || !isVisible) {
+  // Don't render anything when hidden
+  if (!isVisible) {
     return null;
   }
 
   const handleSkip = () => {
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "";
+    }
     setIsFadingOut(true);
     setTimeout(() => {
       setIsVisible(false);
