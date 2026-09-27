@@ -17,6 +17,7 @@ import {
   CartBar,
   CartDrawer,
   OrderConfirmationModal,
+  ActiveOrderBubble,
 } from "@/components/guest-menu";
 
 export type { MenuItem, CategoryWithItems, LocationInfo, CartItem };
@@ -47,8 +48,9 @@ export default function GuestMenuClient({
   const [isHydrated, setIsHydrated] = useState(false);
 
   const storageKey = `splendo_cart_${location?.id || "default"}`;
+  const activeOrderKey = `splendo_active_order_${location?.id || "default"}`;
 
-  // Restore cart from localStorage on mount
+  // Restore cart & active order from localStorage on mount
   useEffect(() => {
     if (typeof window === "undefined") return;
     try {
@@ -71,12 +73,17 @@ export default function GuestMenuClient({
           setSpecialInstructions(parsed.specialInstructions);
         }
       }
+
+      const savedOrderId = localStorage.getItem(activeOrderKey);
+      if (savedOrderId) {
+        setPlacedOrderId(savedOrderId);
+      }
     } catch (e) {
       console.error("Failed to load saved cart from localStorage:", e);
     } finally {
       setIsHydrated(true);
     }
-  }, [storageKey, categories]);
+  }, [storageKey, activeOrderKey, categories]);
 
   // Persist cart to localStorage whenever cart or specialInstructions updates
   useEffect(() => {
@@ -197,6 +204,10 @@ export default function GuestMenuClient({
       if (data.order) {
         playOrderPlacedSound();
         setPlacedOrderId(data.order.id);
+        if (typeof window !== "undefined") {
+          localStorage.setItem(activeOrderKey, data.order.id);
+        }
+        setIsDrawerOpen(false);
         setOrderConfirmed(true);
         setCart([]);
         setSpecialInstructions("");
@@ -317,6 +328,18 @@ export default function GuestMenuClient({
         onOpenDrawer={() => setIsDrawerOpen(true)}
       />
 
+      {/* Floating Movable Active Order Bubble */}
+      <ActiveOrderBubble
+        placedOrderId={placedOrderId}
+        locationName={location.name}
+        onOrderCompleted={() => {
+          setPlacedOrderId(null);
+          if (typeof window !== "undefined") {
+            localStorage.removeItem(activeOrderKey);
+          }
+        }}
+      />
+
       {/* Bottom Sheet Drawer for Cart & Checkout */}
       <CartDrawer
         isOpen={isDrawerOpen}
@@ -331,14 +354,13 @@ export default function GuestMenuClient({
         totalCartPrice={totalCartPrice}
       />
 
-      {/* Order Confirmation Modal */}
+      {/* Order Confirmation Drawer */}
       <OrderConfirmationModal
         isOpen={orderConfirmed}
         placedOrderId={placedOrderId}
         locationName={location.name}
         onClose={() => {
           setOrderConfirmed(false);
-          setIsDrawerOpen(false);
         }}
       />
     </div>
