@@ -135,18 +135,15 @@ export default function AdminOrdersPage() {
           </span>
           <h1 className="text-3xl md:text-4xl font-bold text-stone-900 mt-1 tracking-tight flex items-center gap-3">
             <span>Live Guest Orders</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-black/10 text-black font-mono font-semibold">
-              Live Sync
-            </span>
           </h1>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
           {["all", "received", "in_kitchen", "delivering", "delivered"].map((st) => (
             <button
               key={st}
               onClick={() => setFilterStatus(st)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors capitalize ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors capitalize shrink-0 ${
                 filterStatus === st
                   ? "bg-stone-900 text-white"
                   : "bg-white border border-[#E2E2DC] text-stone-700 hover:bg-stone-50"
@@ -175,7 +172,7 @@ export default function AdminOrdersPage() {
             return (
               <div
                 key={order.id}
-                className="p-6 rounded-2xl bg-white border border-[#E2E2DC] shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-4 hover:border-stone-400 transition-all"
+                className="p-4 sm:p-6 rounded-2xl bg-white border border-[#E2E2DC] shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-4 hover:border-stone-400 transition-all"
               >
                 {/* Top Bar */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-[#E2E2DC]">
@@ -232,7 +229,7 @@ export default function AdminOrdersPage() {
 
                 {/* Bottom Row Actions */}
                 <div className="pt-3 border-t border-[#E2E2DC] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between sm:justify-start gap-2">
                     <span className="text-xs text-stone-400 uppercase tracking-wider font-semibold">Total</span>
                     <span className="font-mono text-lg font-bold text-stone-900">
                       {formatPrice(order.totalAmount)}
@@ -242,7 +239,7 @@ export default function AdminOrdersPage() {
                   {badge.next && (
                     <button
                       onClick={() => handleUpdateStatus(order.id, badge.next!)}
-                      className="px-4 py-2 rounded-xl bg-stone-900 text-white text-xs font-semibold hover:bg-stone-800 transition-colors shadow-xs"
+                      className="w-full sm:w-auto px-4 py-2.5 sm:py-2 rounded-xl bg-stone-900 text-white text-xs font-semibold hover:bg-stone-800 transition-colors shadow-xs text-center"
                     >
                       Advance Status → {badge.nextLabel}
                     </button>

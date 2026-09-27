@@ -267,32 +267,34 @@ export default function AdminMenuPage() {
           </h1>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="relative">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full md:w-auto">
+          <div className="relative w-full sm:w-auto">
             <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search dishes..."
-              className="pl-9 pr-4 py-2 bg-white border border-[#E2E2DC] rounded-xl text-xs text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-900 w-48 md:w-60 transition-all"
+              className="pl-9 pr-4 py-2 bg-white border border-[#E2E2DC] rounded-xl text-xs text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-1 focus:ring-stone-900 w-full sm:w-48 md:w-60 transition-all"
             />
           </div>
 
-          <button
-            onClick={() => setIsAddCategoryOpen(true)}
-            className="px-3.5 py-2 rounded-xl bg-stone-100 text-stone-700 text-xs font-semibold hover:bg-stone-200 transition-colors border border-[#E2E2DC]"
-          >
-            + Category
-          </button>
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <button
+              onClick={() => setIsAddCategoryOpen(true)}
+              className="flex-1 sm:flex-none px-3.5 py-2 rounded-xl bg-stone-100 text-stone-700 text-xs font-semibold hover:bg-stone-200 transition-colors border border-[#E2E2DC] text-center"
+            >
+              + Category
+            </button>
 
-          <button
-            onClick={openAddItemModal}
-            className="px-4 py-2 rounded-xl bg-stone-900 text-white text-xs font-semibold hover:bg-stone-800 transition-colors flex items-center gap-1.5 shadow-sm"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            <span>Add Dish</span>
-          </button>
+            <button
+              onClick={openAddItemModal}
+              className="flex-1 sm:flex-none px-4 py-2 rounded-xl bg-stone-900 text-white text-xs font-semibold hover:bg-stone-800 transition-colors flex items-center justify-center gap-1.5 shadow-sm"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add Dish</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -347,7 +349,19 @@ export default function AdminMenuPage() {
           {categories
             .filter((cat) => activeCategory === "all" || activeCategory === cat.id)
             .map((category) => {
-              const catItems = filteredItems.filter((i) => i.categoryId === category.id);
+              const hasImage = (url: string | null | undefined) =>
+                Boolean(url && url.trim().length > 0);
+
+              const catItems = filteredItems
+                .filter((i) => i.categoryId === category.id)
+                .sort((a, b) => {
+                  const imgA = hasImage(a.imageUrl);
+                  const imgB = hasImage(b.imageUrl);
+                  if (imgA && !imgB) return -1;
+                  if (!imgA && imgB) return 1;
+                  return 0;
+                });
+
               if (activeCategory === "all" && catItems.length === 0 && searchQuery) return null;
 
               return (

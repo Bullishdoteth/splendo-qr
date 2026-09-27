@@ -105,10 +105,21 @@ export default function GuestMenuClient({
     }
   }, [cart, specialInstructions, storageKey, isHydrated]);
 
-  // Curated 6–12 Popular Items
+  // Curated 6–12 Popular Items (with image-priority)
   const popularItems = useMemo(() => {
+    const hasImage = (url: string | null | undefined) =>
+      Boolean(url && url.trim().length > 0);
+
     const allItems = categories.flatMap((c) => c.items);
-    const featured = allItems.filter((i) => i.isFeatured && i.isAvailable);
+    const sortedAllItems = [...allItems].sort((a, b) => {
+      const imgA = hasImage(a.imageUrl);
+      const imgB = hasImage(b.imageUrl);
+      if (imgA && !imgB) return -1;
+      if (!imgA && imgB) return 1;
+      return (a.sortOrder ?? 0) - (b.sortOrder ?? 0);
+    });
+
+    const featured = sortedAllItems.filter((i) => i.isFeatured && i.isAvailable);
 
     if (featured.length >= 6 && featured.length <= 12) {
       return featured;
@@ -117,15 +128,12 @@ export default function GuestMenuClient({
     const selected: MenuItem[] = [...featured];
     const selectedIds = new Set(selected.map((i) => i.id));
 
-    for (const cat of categories) {
-      for (const item of cat.items) {
-        if (!selectedIds.has(item.id) && item.isAvailable) {
-          selected.push(item);
-          selectedIds.add(item.id);
-          if (selected.length >= 10) break;
-        }
+    for (const item of sortedAllItems) {
+      if (!selectedIds.has(item.id) && item.isAvailable) {
+        selected.push(item);
+        selectedIds.add(item.id);
+        if (selected.length >= 10) break;
       }
-      if (selected.length >= 10) break;
     }
     return selected.slice(0, 10);
   }, [categories]);
@@ -231,6 +239,17 @@ export default function GuestMenuClient({
   // Filter Categories & Items based on search and active tab
   const displaySections = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
+    const hasImage = (url: string | null | undefined) =>
+      Boolean(url && url.trim().length > 0);
+
+    const sortItemsByImage = (items: MenuItem[]) =>
+      [...items].sort((a, b) => {
+        const imgA = hasImage(a.imageUrl);
+        const imgB = hasImage(b.imageUrl);
+        if (imgA && !imgB) return -1;
+        if (!imgA && imgB) return 1;
+        return (a.sortOrder ?? 0) - (b.sortOrder ?? 0);
+      });
 
     if (query) {
       const matchedCategories = categories
@@ -240,12 +259,12 @@ export default function GuestMenuClient({
               item.title.toLowerCase().includes(query) ||
               (item.subtitle && item.subtitle.toLowerCase().includes(query));
             const matchesCat =
-            activeCategory === "popular" ||
+              activeCategory === "popular" ||
               activeCategory === "all" ||
               activeCategory === cat.id;
             return matchesSearch && matchesCat && item.isAvailable;
           });
-          return { ...cat, items: matchingItems };
+          return { ...cat, items: sortItemsByImage(matchingItems) };
         })
         .filter((cat) => cat.items.length > 0);
 

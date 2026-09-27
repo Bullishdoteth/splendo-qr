@@ -45,10 +45,24 @@ export const getCachedMenuData = unstable_cache(
       .where(eq(menuItem.isAvailable, true))
       .orderBy(asc(menuItem.sortOrder));
 
-    return categoriesList.map((cat) => ({
-      ...cat,
-      items: itemsList.filter((item) => item.categoryId === cat.id),
-    }));
+    const hasImage = (url: string | null | undefined) =>
+      Boolean(url && url.trim().length > 0);
+
+    return categoriesList.map((cat) => {
+      const catItems = itemsList.filter((item) => item.categoryId === cat.id);
+      catItems.sort((a, b) => {
+        const imgA = hasImage(a.imageUrl);
+        const imgB = hasImage(b.imageUrl);
+        if (imgA && !imgB) return -1;
+        if (!imgA && imgB) return 1;
+        return a.sortOrder - b.sortOrder;
+      });
+
+      return {
+        ...cat,
+        items: catItems,
+      };
+    });
   },
   ["guest-active-menu-data"],
   {

@@ -8,6 +8,7 @@ export interface MenuItem {
   imageUrl: string | null;
   isAvailable: boolean;
   isFeatured?: boolean;
+  sortOrder?: number;
 }
 
 export interface CategoryWithItems {

@@ -115,7 +115,10 @@ export default function AdminOverviewPage() {
 
         <div className="divide-y divide-[#E2E2DC]">
           {recentOrders.map((order) => (
-            <div key={order.id} className="p-5 flex items-center justify-between gap-4 hover:bg-[#FAF9F5] transition-colors">
+            <div
+              key={order.id}
+              className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-[#FAF9F5] transition-colors"
+            >
               <div className="space-y-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="font-semibold text-stone-900 text-sm">{order.room}</span>
@@ -125,7 +128,7 @@ export default function AdminOverviewPage() {
                 <p className="text-[11px] text-stone-400">Guest: {order.guest}</p>
               </div>
 
-              <div className="flex items-center gap-4 shrink-0">
+              <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#E2E2DC]/60">
                 <span className="font-mono text-sm font-semibold text-stone-900">{order.total}</span>
                 <span className={`px-2.5 py-1 rounded-lg text-xs font-medium border ${order.statusStyle}`}>
                   {order.status}
