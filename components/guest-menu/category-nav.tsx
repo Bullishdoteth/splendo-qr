@@ -48,11 +48,11 @@ export function CategoryNav({
             onClick={() => onSelectCategory("popular")}
             className={`px-4 py-2 rounded-full text-xs font-semibold transition-all shrink-0 snap-start flex items-center gap-1.5 ${
               activeCategory === "popular"
-                ? "bg-[#183B32] text-white shadow-xs"
+                ? "bg-black text-white shadow-xs"
                 : "bg-white text-stone-700 border border-[#E5E3DB] hover:bg-stone-50"
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <Sparkles className="w-3.5 h-3.5 text-red-400" />
             <span>Popular</span>
           </button>
 
@@ -62,7 +62,7 @@ export function CategoryNav({
               onClick={() => onSelectCategory(cat.id)}
               className={`px-4 py-2 rounded-full text-xs font-semibold transition-all shrink-0 snap-start ${
                 activeCategory === cat.id
-                  ? "bg-[#183B32] text-white shadow-xs"
+                  ? "bg-black text-white shadow-xs"
                   : "bg-white text-stone-700 border border-[#E5E3DB] hover:bg-stone-50"
               }`}
             >
@@ -74,7 +74,7 @@ export function CategoryNav({
             onClick={() => onSelectCategory("all")}
             className={`px-4 py-2 rounded-full text-xs font-semibold transition-all shrink-0 snap-start ${
               activeCategory === "all"
-                ? "bg-[#183B32] text-white shadow-xs"
+                ? "bg-black text-white shadow-xs"
                 : "bg-white text-stone-700 border border-[#E5E3DB] hover:bg-stone-50"
             }`}
           >

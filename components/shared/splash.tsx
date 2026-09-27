@@ -118,14 +118,14 @@ export function SplashScreen({
       onClick={handleSkip}
       role="dialog"
       aria-label="Welcome to Splendo Hotel & Suites"
-      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-between p-8 bg-[#183B32] text-white select-none transition-all duration-700 ease-in-out cursor-pointer ${
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-between p-8 bg-black text-white select-none transition-all duration-700 ease-in-out cursor-pointer ${
         isFadingOut
           ? "opacity-0 scale-105 pointer-events-none backdrop-blur-none"
           : "opacity-100 scale-100 backdrop-blur-md"
       }`}
     >
       {/* Background Subtle Radial Glow & Luxury Depth */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#235246] via-[#183B32] to-[#0F2822] opacity-90 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-stone-900 via-neutral-950 to-black opacity-90 pointer-events-none" />
 
       {/* Decorative Top Accent */}
       <div className="relative z-10 pt-10 flex items-center gap-2 text-white/50 text-[10px] tracking-[0.3em] font-medium uppercase">

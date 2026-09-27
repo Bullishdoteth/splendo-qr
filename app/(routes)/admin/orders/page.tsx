@@ -86,7 +86,7 @@ export default function AdminOrdersPage() {
       case "received":
         return {
           label: "Order Received",
-          style: "bg-[#183B32] text-white border-[#183B32]",
+          style: "bg-black text-white border-black",
           next: "in_kitchen",
           nextLabel: "Mark In Kitchen",
         };
@@ -135,7 +135,7 @@ export default function AdminOrdersPage() {
           </span>
           <h1 className="text-3xl md:text-4xl font-bold text-stone-900 mt-1 tracking-tight flex items-center gap-3">
             <span>Live Guest Orders</span>
-            <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 font-mono font-semibold">
+            <span className="text-xs px-2.5 py-1 rounded-full bg-black/10 text-black font-mono font-semibold">
               Live Sync
             </span>
           </h1>

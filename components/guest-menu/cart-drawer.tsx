@@ -79,7 +79,7 @@ export function CartDrawer({
               </div>
 
               <div className="flex items-center gap-2 shrink-0">
-                <div className="flex items-center border border-[#183B32]/30 rounded-full bg-[#183B32]/5 p-0.5">
+                <div className="flex items-center border border-black/20 rounded-full bg-black/5 p-0.5">
                   <button
                     onClick={() => updateQuantity(item, -1)}
                     disabled={submittingOrder}
@@ -87,13 +87,13 @@ export function CartDrawer({
                   >
                     -
                   </button>
-                  <span className="px-2 font-mono text-xs font-bold text-[#183B32]">
+                  <span className="px-2 font-mono text-xs font-bold text-black">
                     {quantity}
                   </span>
                   <button
                     onClick={() => updateQuantity(item, 1)}
                     disabled={submittingOrder}
-                    className="w-7 h-7 rounded-full bg-[#183B32] text-white hover:bg-[#112D26] font-bold flex items-center justify-center text-xs shadow-xs disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                    className="w-7 h-7 rounded-full bg-black text-white hover:bg-neutral-800 font-bold flex items-center justify-center text-xs shadow-xs disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                   >
                     +
                   </button>
@@ -125,7 +125,7 @@ export function CartDrawer({
               disabled={submittingOrder}
               onChange={(e) => setSpecialInstructions(e.target.value)}
               placeholder="e.g. Extra cutlery, sauce on the side..."
-              className="w-full px-4 py-3 bg-[#F7F6F2] border border-[#E5E3DB] rounded-xl text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#183B32]/30 focus:border-[#183B32] transition-all resize-none leading-relaxed disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-stone-200/60"
+              className="w-full px-4 py-3 bg-[#F7F6F2] border border-[#E5E3DB] rounded-xl text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-black/30 focus:border-black transition-all resize-none leading-relaxed disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-stone-200/60"
             />
           </div>
 
@@ -139,13 +139,13 @@ export function CartDrawer({
             </div>
             <div className="flex items-center justify-between text-xs text-stone-600">
               <span>Room Service Delivery</span>
-              <span className="font-mono font-semibold text-emerald-700">
+              <span className="font-mono font-semibold text-stone-900">
                 Complimentary
               </span>
             </div>
             <div className="flex items-center justify-between text-base font-bold text-stone-900 pt-3 border-t border-[#E5E3DB]">
               <span>Total</span>
-              <span className="font-mono text-lg text-[#183B32]">
+              <span className="font-mono text-lg text-black">
                 {formatPrice(totalCartPrice)}
               </span>
             </div>
@@ -156,7 +156,7 @@ export function CartDrawer({
             <button
               onClick={handleSendOrder}
               disabled={submittingOrder || cart.length === 0}
-              className="w-full py-3.5 rounded-full bg-[#183B32] text-white font-semibold text-sm hover:bg-[#112D26] active:scale-[0.99] transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full py-3.5 rounded-full bg-black text-white font-semibold text-sm hover:bg-neutral-800 active:scale-[0.99] transition-all flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {submittingOrder ? (
                 <>

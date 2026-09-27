@@ -43,12 +43,12 @@ function OrderingPointInactive({ error }: { error: string }) {
   return (
     <div className="min-h-screen bg-[#F7F6F2] flex flex-col items-center justify-center p-6 text-center font-sans">
       <div className="bg-white p-8 rounded-3xl border border-[#E5E3DB] shadow-md max-w-sm w-full space-y-4">
-        <Utensils className="w-12 h-12 text-[#183B32] mx-auto" />
+        <Utensils className="w-12 h-12 text-black mx-auto" />
         <h2 className="text-xl font-bold text-stone-900">Ordering Point Inactive</h2>
         <p className="text-xs text-stone-500">{error}</p>
         <Link
           href="/admin/overview"
-          className="inline-block px-5 py-2.5 rounded-full bg-[#183B32] text-white text-xs font-semibold shadow-sm"
+          className="inline-block px-5 py-2.5 rounded-full bg-black text-white text-xs font-semibold shadow-sm"
         >
           Staff Portal Overview
         </Link>

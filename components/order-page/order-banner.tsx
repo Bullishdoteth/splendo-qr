@@ -26,7 +26,7 @@ export function OrderBanner({
       case "delivering":
         return { label: "Out for Delivery", bg: "bg-purple-100 text-purple-900 border-purple-200" };
       case "delivered":
-        return { label: "Delivered", bg: "bg-emerald-100 text-emerald-900 border-emerald-200" };
+        return { label: "Delivered", bg: "bg-black/10 text-black border-black/20" };
       default:
         return { label: s, bg: "bg-stone-100 text-stone-800 border-stone-200" };
     }
@@ -51,11 +51,11 @@ export function OrderBanner({
         </div>
         <div className="flex flex-wrap items-center gap-4 text-xs text-stone-500 font-medium">
           <span className="flex items-center gap-1.5">
-            <MapPin className="w-4 h-4 text-[#183B32]" />
+            <MapPin className="w-4 h-4 text-black" />
             <strong className="text-stone-900">{locationName}</strong>
           </span>
           <span className="flex items-center gap-1.5">
-            <Clock className="w-4 h-4 text-[#183B32]" />
+            <Clock className="w-4 h-4 text-black" />
             <span>Placed {formattedTime}</span>
           </span>
         </div>

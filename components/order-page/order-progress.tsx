@@ -65,7 +65,7 @@ export function OrderProgress({ status }: OrderProgressProps) {
     <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E5E3DB] shadow-xs space-y-6 font-sans">
       <div className="flex items-center justify-between border-b border-[#E5E3DB] pb-3">
         <h2 className="text-base font-bold text-stone-900 tracking-tight flex items-center gap-2">
-          <Clock className="w-4 h-4 text-[#183B32]" />
+          <Clock className="w-4 h-4 text-black" />
           <span>Live Order Progress</span>
         </h2>
         <span className="text-xs font-semibold text-stone-500">
@@ -80,7 +80,7 @@ export function OrderProgress({ status }: OrderProgressProps) {
 
         {/* Filled Progress Line */}
         <div
-          className="absolute top-7 left-[8%] h-1 bg-[#183B32] rounded-full transition-all duration-700 ease-out -z-0"
+          className="absolute top-7 left-[8%] h-1 bg-black rounded-full transition-all duration-700 ease-out -z-0"
           style={{ width: `calc(${progressPercentage}% * 0.84)` }}
         />
 
@@ -100,11 +100,11 @@ export function OrderProgress({ status }: OrderProgressProps) {
                 <div
                   className={`w-11 h-11 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
                     isCompleted
-                      ? "bg-[#183B32] border-[#183B32] text-white shadow-md"
+                      ? "bg-black border-black text-white shadow-md"
                       : "bg-[#FAF9F5] border-stone-300 text-stone-400"
                   } ${
                     isCurrent
-                      ? "ring-4 ring-[#183B32]/20 scale-110"
+                      ? "ring-4 ring-black/20 scale-110"
                       : ""
                   }`}
                 >
@@ -137,7 +137,7 @@ export function OrderProgress({ status }: OrderProgressProps) {
 
         {/* Vertical Active Fill Line */}
         <div
-          className="absolute left-6 top-6 w-1 bg-[#183B32] rounded-full transition-all duration-700 ease-out -z-0"
+          className="absolute left-6 top-6 w-1 bg-black rounded-full transition-all duration-700 ease-out -z-0"
           style={{ height: `${progressPercentage}%` }}
         />
 
@@ -153,11 +153,11 @@ export function OrderProgress({ status }: OrderProgressProps) {
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 border-2 transition-all duration-300 ${
                     isCompleted
-                      ? "bg-[#183B32] border-[#183B32] text-white shadow-sm"
+                      ? "bg-black border-black text-white shadow-sm"
                       : "bg-[#FAF9F5] border-stone-300 text-stone-400"
                   } ${
                     isCurrent
-                      ? "ring-4 ring-[#183B32]/20 scale-105"
+                      ? "ring-4 ring-black/20 scale-105"
                       : ""
                   }`}
                 >

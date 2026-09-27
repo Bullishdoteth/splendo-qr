@@ -11,13 +11,13 @@ export function OrderHeader() {
           href="/menu"
           className="flex items-center gap-2 text-stone-700 hover:text-stone-900 text-xs font-semibold transition-colors"
         >
-          <ArrowLeft className="w-4.5 h-4.5 text-[#183B32]" />
+          <ArrowLeft className="w-4.5 h-4.5 text-black" />
           <span>Back to Menu</span>
         </Link>
 
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-          <span className="text-xs font-bold uppercase tracking-wider text-[#183B32]">
+          <span className="text-xs font-bold uppercase tracking-wider text-black">
             Splendo Room Service
           </span>
         </div>

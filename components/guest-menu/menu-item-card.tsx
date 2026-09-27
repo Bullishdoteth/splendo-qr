@@ -19,7 +19,7 @@ export function MenuItemCard({
   return (
     <div
       className={`bg-white p-3.5 rounded-2xl border border-[#E5E3DB] shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex items-start gap-3.5 transition-all ${
-        isPopularItem ? "ring-1 ring-[#183B32]/10" : ""
+        isPopularItem ? "ring-1 ring-black/10" : ""
       }`}
     >
       {/* Optional Image Thumbnail - ONLY rendered if imageUrl exists */}
@@ -71,14 +71,14 @@ export function MenuItemCard({
             {quantity === 0 ? (
               <button
                 onClick={() => updateQuantity(dish, 1)}
-                className="h-9 px-3.5 bg-[#183B32] text-white text-xs font-semibold rounded-full hover:bg-[#112D26] active:scale-95 transition-all flex items-center gap-1 shadow-xs shrink-0"
+                className="h-9 px-3.5 bg-black text-white text-xs font-semibold rounded-full hover:bg-neutral-800 active:scale-95 transition-all flex items-center gap-1 shadow-xs shrink-0"
                 aria-label={`Add ${dish.title}`}
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Add</span>
               </button>
             ) : (
-              <div className="flex items-center bg-[#183B32]/10 border border-[#183B32]/30 rounded-full p-0.5 shadow-xs shrink-0">
+              <div className="flex items-center bg-black/5 border border-black/20 rounded-full p-0.5 shadow-xs shrink-0">
                 <button
                   onClick={() => updateQuantity(dish, -1)}
                   className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-stone-900 hover:bg-stone-100 font-bold flex items-center justify-center text-xs active:scale-90 transition-transform shadow-xs"
@@ -86,12 +86,12 @@ export function MenuItemCard({
                 >
                   -
                 </button>
-                <span className="w-6 text-center font-mono text-xs font-bold text-[#183B32]">
+                <span className="w-6 text-center font-mono text-xs font-bold text-black">
                   {quantity}
                 </span>
                 <button
                   onClick={() => updateQuantity(dish, 1)}
-                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#183B32] text-white hover:bg-[#112D26] font-bold flex items-center justify-center text-xs active:scale-90 transition-transform shadow-xs"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black text-white hover:bg-neutral-800 font-bold flex items-center justify-center text-xs active:scale-90 transition-transform shadow-xs"
                   aria-label="Increase quantity"
                 >
                   +

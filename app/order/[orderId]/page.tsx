@@ -107,7 +107,7 @@ export default function OrderTrackingPage({
   if (loading) {
     return (
       <div className="min-h-screen bg-[#F7F6F2] flex flex-col items-center justify-center space-y-4 font-sans text-stone-900">
-        <Loader2 className="w-10 h-10 animate-spin text-[#183B32]" />
+        <Loader2 className="w-10 h-10 animate-spin text-black" />
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">
           Retrieving Real-Time Order Details...
         </p>
@@ -119,14 +119,14 @@ export default function OrderTrackingPage({
     return (
       <div className="min-h-screen bg-[#F7F6F2] flex flex-col items-center justify-center p-6 text-center font-sans">
         <div className="bg-white p-8 rounded-3xl border border-[#E5E3DB] shadow-sm max-w-md w-full space-y-4">
-          <Utensils className="w-12 h-12 text-[#183B32] mx-auto" />
+          <Utensils className="w-12 h-12 text-black mx-auto" />
           <h2 className="text-xl font-bold text-stone-900">Order Not Found</h2>
           <p className="text-xs text-stone-500">
             {error || "Could not find an active room service order for this ID."}
           </p>
           <Link
             href="/menu"
-            className="inline-block px-6 py-3 rounded-full bg-[#183B32] text-white text-xs font-semibold shadow-sm hover:bg-[#112D26] transition-colors"
+            className="inline-block px-6 py-3 rounded-full bg-black text-white text-xs font-semibold shadow-sm hover:bg-neutral-800 transition-colors"
           >
             Return to Room Menu
           </Link>

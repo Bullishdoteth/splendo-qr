@@ -20,17 +20,17 @@ export function CartBar({
     <div className="fixed bottom-4 inset-x-4 max-w-md mx-auto z-40 animate-in slide-in-from-bottom duration-300">
       <button
         onClick={onOpenDrawer}
-        className="w-full bg-[#183B32] text-white px-5 py-3.5 rounded-full shadow-2xl flex items-center justify-between hover:bg-[#112D26] active:scale-[0.98] transition-all border border-[#2B5247]"
+        className="w-full bg-black text-white px-5 py-3.5 rounded-full shadow-2xl flex items-center justify-between hover:bg-neutral-900 active:scale-[0.98] transition-all border border-neutral-800"
       >
         <div className="flex items-center gap-3">
-          <div className="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-bold flex items-center justify-center border border-emerald-500/30">
+          <div className="w-7 h-7 rounded-full bg-white/20 text-white text-xs font-mono font-bold flex items-center justify-center border border-white/30">
             {totalCartItems}
           </div>
           <div className="text-left">
             <p className="text-xs font-bold tracking-wide leading-none">
               View order
             </p>
-            <p className="text-[10px] text-emerald-200/80 leading-tight mt-0.5">
+            <p className="text-[10px] text-stone-300 leading-tight mt-0.5">
               {totalCartItems} {totalCartItems === 1 ? "item" : "items"}
             </p>
           </div>
@@ -40,7 +40,7 @@ export function CartBar({
           <span className="font-mono text-sm font-bold text-white">
             {formatPrice(totalCartPrice)}
           </span>
-          <ChevronRight className="w-4 h-4 text-emerald-200" />
+          <ChevronRight className="w-4 h-4 text-stone-300" />
         </div>
       </button>
     </div>

@@ -32,7 +32,7 @@ export function MenuList({
           </p>
           <button
             onClick={onClearSearchAndShowAll}
-            className="mt-2 px-4 py-2 bg-[#183B32] text-white text-xs font-semibold rounded-full hover:bg-[#112D26]"
+            className="mt-2 px-4 py-2 bg-black text-white text-xs font-semibold rounded-full hover:bg-neutral-800"
           >
             View All Menu Items
           </button>
@@ -43,7 +43,7 @@ export function MenuList({
             <div className="flex items-center justify-between px-1 pb-4">
               <h3 className="text-base font-bold text-stone-900 tracking-tight flex items-center gap-1.5">
                 {section.id === "popular" && (
-                  <Sparkles className="w-4 h-4 text-[#183B32]" />
+                  <Sparkles className="w-4 h-4 text-black" />
                 )}
                 <span>{section.name}</span>
               </h3>

@@ -41,7 +41,7 @@ export function OrderConfirmationModal({
           </DrawerClose>
         </div>
 
-        <div className="w-16 h-16 rounded-full bg-emerald-100 text-[#183B32] flex items-center justify-center mx-auto shadow-sm">
+        <div className="w-16 h-16 rounded-full bg-black/10 text-black flex items-center justify-center mx-auto shadow-sm">
           <CheckCircle className="w-9 h-9" />
         </div>
 
@@ -59,7 +59,7 @@ export function OrderConfirmationModal({
         <div className="space-y-2.5 pt-2">
           <Link
             href={`/order/${placedOrderId}`}
-            className="w-full py-3.5 rounded-full bg-[#183B32] text-white font-semibold text-xs hover:bg-[#112D26] transition-colors shadow-md flex items-center justify-center gap-1.5"
+            className="w-full py-3.5 rounded-full bg-black text-white font-semibold text-xs hover:bg-neutral-800 transition-colors shadow-md flex items-center justify-center gap-1.5"
           >
             <span>Track Order Status</span>
             <ChevronRight className="w-4 h-4" />

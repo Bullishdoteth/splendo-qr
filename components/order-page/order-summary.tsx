@@ -28,14 +28,14 @@ export function OrderSummary({
 
           <div className="flex items-center justify-between">
             <span>Room Service Delivery</span>
-            <span className="font-mono font-semibold text-emerald-700">
+            <span className="font-mono font-semibold text-stone-900">
               Complimentary
             </span>
           </div>
 
           <div className="flex items-center justify-between text-sm font-bold text-stone-900 pt-3 border-t border-[#E5E3DB]">
             <span>Total Paid</span>
-            <span className="font-mono text-base text-[#183B32]">
+            <span className="font-mono text-base text-black">
               {formatPrice(totalAmount)}
             </span>
           </div>
@@ -45,7 +45,7 @@ export function OrderSummary({
       <div className="pt-6 border-t border-[#E5E3DB]">
         <Link
           href="/menu"
-          className="w-full py-3.5 rounded-full bg-[#183B32] text-white font-semibold text-xs hover:bg-[#112D26] transition-colors shadow-sm flex items-center justify-center gap-2"
+          className="w-full py-3.5 rounded-full bg-black text-white font-semibold text-xs hover:bg-neutral-800 transition-colors shadow-sm flex items-center justify-center gap-2"
         >
           <span>Back to Menu</span>
         </Link>

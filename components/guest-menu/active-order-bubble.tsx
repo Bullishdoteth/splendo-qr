@@ -136,16 +136,16 @@ export function ActiveOrderBubble({
     >
       <div className="relative group">
         {/* Subtle glowing halo */}
-        <div className="absolute -inset-1 rounded-full bg-emerald-500/30 blur-xs group-hover:bg-emerald-500/50 transition-all" />
+        <div className="absolute -inset-1 rounded-full bg-stone-500/30 blur-xs group-hover:bg-stone-500/50 transition-all" />
 
         {/* Floating Bubble Badge */}
-        <div className="relative w-13 h-13 rounded-full bg-[#183B32] text-white flex items-center justify-center border-2 border-emerald-500/40 hover:bg-[#112D26] hover:scale-105 active:scale-95 transition-all">
-          <Utensils className="w-5.5 h-5.5 text-emerald-300" />
+        <div className="relative w-13 h-13 rounded-full bg-black text-white flex items-center justify-center border-2 border-neutral-700 hover:bg-neutral-900 hover:scale-105 active:scale-95 transition-all">
+          <Utensils className="w-5.5 h-5.5 text-white" />
 
-          {/* Pulsing Green Notification Dot */}
+          {/* Pulsing Red Notification Dot */}
           <span className="absolute top-0 right-0 flex h-3.5 w-3.5 -mt-0.5 -mr-0.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-[#183B32]" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-red-500 border-2 border-black" />
           </span>
         </div>
       </div>

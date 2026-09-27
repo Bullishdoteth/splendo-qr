@@ -21,7 +21,7 @@ export function MenuSearch({ searchQuery, setSearchQuery }: MenuSearchProps) {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search food & drinks..."
-          className="w-full pl-10 pr-9 py-3 bg-white border border-[#E5E3DB] rounded-2xl text-xs sm:text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#183B32]/30 shadow-xs transition-all"
+          className="w-full pl-10 pr-9 py-3 bg-white border border-[#E5E3DB] rounded-2xl text-xs sm:text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-black/30 focus:border-black shadow-xs transition-all"
         />
         {searchQuery && (
           <button
