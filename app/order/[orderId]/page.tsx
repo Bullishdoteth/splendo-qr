@@ -117,7 +117,7 @@ export default function OrderTrackingPage({
 
   if (error || !order) {
     return (
-      <div className="min-h-screen bg-[#F7F6F2] flex flex-col items-center justify-center p-6 text-center font-sans">
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6 text-center font-sans">
         <div className="bg-white p-8 rounded-3xl border border-[#E5E3DB] shadow-sm max-w-md w-full space-y-4">
           <Utensils className="w-12 h-12 text-black mx-auto" />
           <h2 className="text-xl font-bold text-stone-900">Order Not Found</h2>
@@ -136,7 +136,7 @@ export default function OrderTrackingPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F6F2] font-sans text-stone-900 flex flex-col pb-16">
+    <div className="min-h-screen bg-white font-sans text-stone-900 flex flex-col pb-16">
       {/* Reusable Header Bar */}
       <OrderHeader />
 

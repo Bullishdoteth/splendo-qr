@@ -149,7 +149,7 @@ export async function POST(req: Request) {
         locationName: foundLocationName,
         subtotal: calculatedSubtotal,
         totalAmount: calculatedTotal,
-        status: "received",
+        status: "in_kitchen",
         specialInstructions: guestNotes,
       })
       .returning();

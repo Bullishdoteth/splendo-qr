@@ -20,7 +20,6 @@ export function OrderBanner({
   const getStatusBadge = (s: string) => {
     switch (s) {
       case "received":
-        return { label: "Received", bg: "bg-blue-100 text-blue-800 border-blue-200" };
       case "in_kitchen":
         return { label: "In Kitchen", bg: "bg-amber-100 text-amber-900 border-amber-200" };
       case "delivering":

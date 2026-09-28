@@ -84,12 +84,6 @@ export default function AdminOrdersPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "received":
-        return {
-          label: "Order Received",
-          style: "bg-black text-white border-black",
-          next: "in_kitchen",
-          nextLabel: "Mark In Kitchen",
-        };
       case "in_kitchen":
         return {
           label: "In Kitchen",
@@ -122,7 +116,10 @@ export default function AdminOrdersPage() {
   };
 
   const filteredOrders = orders.filter(
-    (o) => filterStatus === "all" || o.status === filterStatus
+    (o) =>
+      filterStatus === "all" ||
+      o.status === filterStatus ||
+      (filterStatus === "in_kitchen" && o.status === "received")
   );
 
   return (
@@ -139,7 +136,7 @@ export default function AdminOrdersPage() {
         </div>
 
         <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-          {["all", "received", "in_kitchen", "delivering", "delivered"].map((st) => (
+          {["all", "in_kitchen", "delivering", "delivered"].map((st) => (
             <button
               key={st}
               onClick={() => setFilterStatus(st)}

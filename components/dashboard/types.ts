@@ -26,13 +26,9 @@ export const formatPrice = (val: number) => {
 export const getStatusBadge = (status: string) => {
   switch (status) {
     case "received":
-      return {
-        label: "Order Received",
-        style: "bg-black text-white border-black",
-      };
     case "in_kitchen":
       return {
-        label: "Preparing",
+        label: "In Kitchen",
         style: "bg-amber-100/80 text-amber-900 border-amber-200/80",
       };
     case "delivering":

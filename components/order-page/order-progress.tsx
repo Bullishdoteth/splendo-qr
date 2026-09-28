@@ -16,12 +16,6 @@ interface Step {
 export function OrderProgress({ status }: OrderProgressProps) {
   const statusSteps: Step[] = [
     {
-      key: "received",
-      label: "Order Received",
-      subtext: "Kitchen notified",
-      icon: Bell,
-    },
-    {
       key: "in_kitchen",
       label: "In Kitchen",
       subtext: "Chefs preparing meal",
@@ -44,13 +38,12 @@ export function OrderProgress({ status }: OrderProgressProps) {
   const getStepIndex = (s: string) => {
     switch (s) {
       case "received":
-        return 0;
       case "in_kitchen":
-        return 1;
+        return 0;
       case "delivering":
-        return 2;
+        return 1;
       case "delivered":
-        return 3;
+        return 2;
       default:
         return 0;
     }
