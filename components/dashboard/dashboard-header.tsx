@@ -24,11 +24,11 @@ export function DashboardHeader({
         </span>
         <h1 className="text-3xl md:text-4xl font-bold text-stone-900 mt-1 tracking-tight flex items-center gap-3">
           <span>{title}</span>
-          {showLiveBadge && (
+          {/* {showLiveBadge && (
             <span className="text-xs px-2.5 py-1 rounded-full bg-black/10 text-black font-mono font-semibold">
               Live DB
             </span>
-          )}
+          )} */}
         </h1>
       </div>
 
