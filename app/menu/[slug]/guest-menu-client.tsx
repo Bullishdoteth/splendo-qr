@@ -3,7 +3,8 @@
 import { useState, useMemo, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import { playOrderPlacedSound } from "@/lib/utils/sound";
-import { SplashScreen } from "@/components/shared/splash";
+// SplashScreen component disabled
+// import { SplashScreen } from "@/components/shared/splash";
 import {
   MenuItem,
   CategoryWithItems,
@@ -310,7 +311,7 @@ export default function GuestMenuClient({
 
   return (
     <div className="min-h-screen bg-white text-stone-900 font-sans pb-36">
-      <SplashScreen forceShow={true} />
+      {/* SplashScreen disabled */}
 
       {/* Contextual Top Header */}
       <MenuHeader location={location} />

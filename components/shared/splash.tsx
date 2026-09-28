@@ -23,6 +23,9 @@ export function SplashScreen({
   forceShow = true,
   onComplete,
 }: SplashScreenProps) {
+  // Splash screen disabled
+  return null;
+
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [progress, setProgress] = useState(0);
