@@ -140,48 +140,48 @@ export default function AdminOverviewPage() {
         </div>
       </div>
 
-      {/* Metrics Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-white border border-[#E2E2DC] shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-3">
+      {/* Metrics Row (2x2 box matrix on mobile, 4-col on desktop) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white border border-[#E2E2DC] shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-2 sm:space-y-3 min-w-0">
           <div className="flex items-center justify-between text-stone-500">
-            <span className="text-xs font-medium uppercase tracking-wider">Today's Revenue</span>
-            <TrendingUp className="w-4 h-4 text-stone-400" />
+            <span className="text-[10px] sm:text-xs font-medium uppercase tracking-wider truncate">Today's Revenue</span>
+            <TrendingUp className="w-4 h-4 text-stone-400 shrink-0" />
           </div>
-          <p className="text-2xl font-bold text-stone-900">
+          <p className="text-lg sm:text-2xl font-bold text-stone-900 truncate">
             {formatPrice(todayRevenue > 0 ? todayRevenue : totalRevenue)}
           </p>
-          <p className="text-xs text-stone-500 font-medium">
-            {todayOrders.length} {todayOrders.length === 1 ? "order" : "orders"} placed today
+          <p className="text-[10px] sm:text-xs text-stone-500 font-medium truncate">
+            {todayOrders.length} {todayOrders.length === 1 ? "order" : "orders"} today
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-[#E2E2DC] shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-3">
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white border border-[#E2E2DC] shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-2 sm:space-y-3 min-w-0">
           <div className="flex items-center justify-between text-stone-500">
-            <span className="text-xs font-medium uppercase tracking-wider">Active Orders</span>
-            <ShoppingBag className="w-4 h-4 text-stone-400" />
+            <span className="text-[10px] sm:text-xs font-medium uppercase tracking-wider truncate">Active Orders</span>
+            <ShoppingBag className="w-4 h-4 text-stone-400 shrink-0" />
           </div>
-          <p className="text-2xl font-bold text-stone-900">{activeOrders.length}</p>
-          <p className="text-xs text-stone-500 font-medium">
-            {prepOrders.length} requiring preparation
+          <p className="text-lg sm:text-2xl font-bold text-stone-900 truncate">{activeOrders.length}</p>
+          <p className="text-[10px] sm:text-xs text-stone-500 font-medium truncate">
+            {prepOrders.length} in kitchen
           </p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-[#E2E2DC] shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-3">
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white border border-[#E2E2DC] shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-2 sm:space-y-3 min-w-0">
           <div className="flex items-center justify-between text-stone-500">
-            <span className="text-xs font-medium uppercase tracking-wider">Delivered Orders</span>
-            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <span className="text-[10px] sm:text-xs font-medium uppercase tracking-wider truncate">Delivered</span>
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           </div>
-          <p className="text-2xl font-bold text-stone-900">{deliveredOrders.length}</p>
-          <p className="text-xs text-stone-500 font-medium">Completed room requests</p>
+          <p className="text-lg sm:text-2xl font-bold text-stone-900 truncate">{deliveredOrders.length}</p>
+          <p className="text-[10px] sm:text-xs text-stone-500 font-medium truncate">Completed requests</p>
         </div>
 
-        <div className="p-5 rounded-2xl bg-white border border-[#E2E2DC] shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-3">
+        <div className="p-3.5 sm:p-5 rounded-2xl bg-white border border-[#E2E2DC] shadow-[0_2px_8px_rgba(0,0,0,0.02)] space-y-2 sm:space-y-3 min-w-0">
           <div className="flex items-center justify-between text-stone-500">
-            <span className="text-xs font-medium uppercase tracking-wider">Total Orders</span>
-            <Clock className="w-4 h-4 text-stone-400" />
+            <span className="text-[10px] sm:text-xs font-medium uppercase tracking-wider truncate">Total Orders</span>
+            <Clock className="w-4 h-4 text-stone-400 shrink-0" />
           </div>
-          <p className="text-2xl font-bold text-stone-900">{orders.length}</p>
-          <p className="text-xs text-stone-500 font-medium">Recorded in database</p>
+          <p className="text-lg sm:text-2xl font-bold text-stone-900 truncate">{orders.length}</p>
+          <p className="text-[10px] sm:text-xs text-stone-500 font-medium truncate">In database</p>
         </div>
       </div>
 
