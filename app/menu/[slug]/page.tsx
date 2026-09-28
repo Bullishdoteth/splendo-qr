@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import GuestMenuClient from "./guest-menu-client";
 import { Utensils } from "lucide-react";
 import Link from "next/link";
-import { getCachedMenuData } from "@/lib/db/cached-menu";
+import { getMenuData } from "@/lib/db/cached-menu";
 
 export default async function GuestMenuPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -24,8 +24,8 @@ export default async function GuestMenuPage({ params }: { params: Promise<{ slug
       return <OrderingPointInactive error={`Ordering point for '${slug}' was not found or is inactive.`} />;
     }
 
-    // 2. Fetch cached menu (0 DB queries on warm cache)
-    const menuWithItems = await getCachedMenuData();
+    // 2. Fetch cached menu (with graceful direct DB fallback if cache size exceeds limit)
+    const menuWithItems = await getMenuData();
 
     return (
       <GuestMenuClient
